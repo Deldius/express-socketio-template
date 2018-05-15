@@ -7,6 +7,7 @@
  * @module path
  * @module cookie-parser  Parse Cookie header and populate req.cookies with an object keyed by the cookie names
  * @module morgan         HTTP request logger middleware for node.js
+ * @module compression    Node.js compression middleware.
  * 
  * @export app
  * @export server
@@ -18,6 +19,7 @@ var path            = require('path');
 var cookieParser    = require('cookie-parser');
 var logger          = require('morgan');
 var http            = require('http');
+var compression     = require('compression');
 
 // Initialize
 var app     = express();
@@ -37,6 +39,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
 app.use(express.static(path.join(__dirname, '../public')));
 
 // set port
