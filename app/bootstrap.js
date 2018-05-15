@@ -11,10 +11,13 @@
  * @module helmet                 protect against well known vulnerabilities
  * @module node-sass-middleware   Connect/Express middleware for node-sass.
  * 
- * @export app
- * @export server
- * @export io
+ * @export app                    Loaded-depency Express Engine
+ * @export server                 Express HTTP server
+ * @export config
+ * @export io                     Soket.io
  */
+
+var config          = require('./../config');
 
 var express         = require('express');
 var path            = require('path');
@@ -30,13 +33,11 @@ var app     = express();
 var server  = http.createServer(app);
 
 // Register Socket.io
-var io      = require('socket.io')(server, {
-  
-});
+var io      = require('socket.io')(server);
 
 // view engine setup
-app.set('views', path.join(__dirname, '../views'));
-app.set('view engine', 'jade');
+app.set('views', config.path.views);
+app.set('view engine', config.server.viewEngine);
 
 // load dependencies
 app.use(helmet());
@@ -45,32 +46,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sassMiddleware({
-  src: path.join(__dirname, '../public'),
-  dest: path.join(__dirname, '../public'),
+  src: config.path.public,
+  dest: config.path.public,
   indentedSyntax: false, // true = .sass and false = .scss
   sourceMap: true
 }));
 app.use(compression());
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(config.path.public));
 
 // set port
-app.set('port', normalizePort(process.env.PORT || '3000'));
+app.set('port', config.server.port);
 
-module.exports = {app, server, io};
-
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
+module.exports = {app, server, config, io};

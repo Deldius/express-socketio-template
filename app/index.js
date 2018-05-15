@@ -1,21 +1,22 @@
 /**
  * Module dependencies.
  * 
- * @module app      Express Engine from bootstrap
+ * @module app      Loaded-depency Express Engine
  * @module server   Express HTTP server
+ * @module config
  * @module io       Socket.io
- * @module socket   Socket event listener/dispatcher
  * 
- * @export app
+ * @export app      with registered routes
  * @export server
- * @export io
+ * @module config
+ * @export io       with event listeners/dispatchers
  */
-var {app, server, io} = require('./bootstrap');
-var publicSocket = require('./../routes/sockets/public');
+var {app, server, config, io} = require('./bootstrap');
 
 /**
  * Register Socket.io Route
  */
+var publicSocket = require('./../routes/sockets/public');
 publicSocket(io);
 
 /**
@@ -24,4 +25,4 @@ publicSocket(io);
 app.use('/', require('./../routes'));
 app.use('/api', require('./../routes/api'))
 
-module.exports = {app, server, io};
+module.exports = {app, server, config, io};
