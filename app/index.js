@@ -8,15 +8,9 @@
 var {app, server, io} = require('./bootstrap');
 
 /**
- * Set Routes
+ * Register Routes
  */
-app.get('/', (req, res, next) => {
-    res.render('index', { title: 'Express' });
-})
-
-/**
- * Set Exception Handler
- */
-var ExceptionHandler = require('./Exceptions/handler')(app);
+app.use('/', require('./../routes'));
+app.use('/api', require('./../routes/api'))
 
 module.exports = {app, server, io};

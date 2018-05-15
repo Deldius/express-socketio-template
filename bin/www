@@ -13,6 +13,11 @@ var debug             = require('debug')('express-template:server');
 
 
 /**
+ * Set Exception Handler
+ */
+var ExceptionHandler = require('./../app/Exceptions/handler')(app);
+
+/**
  * Listen on provided port, on all network interfaces.
  */
 server.listen(app.get('port'));
