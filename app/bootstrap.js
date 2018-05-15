@@ -8,6 +8,7 @@
  * @module cookie-parser  Parse Cookie header and populate req.cookies with an object keyed by the cookie names
  * @module morgan         HTTP request logger middleware for node.js
  * @module compression    Node.js compression middleware.
+ * @module helmet         protect against well known vulnerabilities
  * 
  * @export app
  * @export server
@@ -20,6 +21,7 @@ var cookieParser    = require('cookie-parser');
 var logger          = require('morgan');
 var http            = require('http');
 var compression     = require('compression');
+var helmet          = require('helmet');
 
 // Initialize
 var app     = express();
@@ -35,6 +37,7 @@ app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'jade');
 
 // load dependencies
+app.use(helmet());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
