@@ -4,6 +4,10 @@
  * @module app      Express Engine from bootstrap
  * @module server   Express HTTP server
  * @module io       Socket.io
+ * 
+ * @export app
+ * @export server
+ * @export io
  */
 var {app, server, io} = require('./bootstrap');
 var path              = require('path');

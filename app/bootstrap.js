@@ -3,7 +3,14 @@
  * 
  * @version 1.0
  * 
+ * @module express        Express
+ * @module path
+ * @module cookie-parser  Parse Cookie header and populate req.cookies with an object keyed by the cookie names
+ * @module morgan         HTTP request logger middleware for node.js
  * 
+ * @export app
+ * @export server
+ * @export io
  */
 
 var express         = require('express');
@@ -12,7 +19,10 @@ var cookieParser    = require('cookie-parser');
 var logger          = require('morgan');
 var http            = require('http');
 
-var app = express();
+// Initialize
+var app     = express();
+var server  = http.createServer(app);
+var io      = require('socket.io')(server);
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
@@ -27,12 +37,6 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // set port
 app.set('port', normalizePort(process.env.PORT || '3000'));
-
-// Create HTTP server.
-var server = http.createServer(app);
-
-// Init Socket.io
-var io = require('socket.io')(server);
 
 module.exports = {app, server, io};
 
