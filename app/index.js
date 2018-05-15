@@ -10,22 +10,12 @@
  * @export io
  */
 var {app, server, io} = require('./bootstrap');
-var path              = require('path');
+var socket = require('./../routes/socket');
 
 /**
  * Register Socket.io
  */
-// io.set("transports", ['websocket']);
-
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-});
-
-app.get('/socket', function (req, res) {
-  res.sendFile(path.join(__dirname, '../views/socket.html'));
-});
+socket(io);
 
 /**
  * Register Routes

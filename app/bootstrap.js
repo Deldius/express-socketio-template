@@ -22,7 +22,11 @@ var http            = require('http');
 // Initialize
 var app     = express();
 var server  = http.createServer(app);
-var io      = require('socket.io')(server);
+
+// Register Socket.io
+var io      = require('socket.io')(server, {
+  
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
