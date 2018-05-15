@@ -4,6 +4,7 @@
  * @module app      Express Engine from bootstrap
  * @module server   Express HTTP server
  * @module io       Socket.io
+ * @module socket   Socket event listener/dispatcher
  * 
  * @export app
  * @export server
@@ -13,7 +14,7 @@ var {app, server, io} = require('./bootstrap');
 var socket = require('./../routes/socket');
 
 /**
- * Register Socket.io
+ * Register Socket.io Route
  */
 socket(io);
 
