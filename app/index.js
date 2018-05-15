@@ -11,12 +11,12 @@
  * @export io
  */
 var {app, server, io} = require('./bootstrap');
-var socket = require('./../routes/socket');
+var publicSocket = require('./../routes/sockets/public');
 
 /**
  * Register Socket.io Route
  */
-socket(io);
+publicSocket(io);
 
 /**
  * Register Routes
